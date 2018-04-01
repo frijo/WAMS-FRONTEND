@@ -1,0 +1,96 @@
+<div class="col-lg-8 ingredients-list">
+	
+	<h1 class="h1-strong">{{title}}</h1> 
+
+	<div class="col-lg-12 panel-default  pull-left" *ngFor= "let ingredient of ingredients; let i = index">
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="fields-ingredients pull-left" *ngIf="!ingredient.show">
+					<label>Ingrediente</label>
+					<p>{{ingredient.name}}</p>
+				</div>
+				
+				<div class="fields-ingredients pull-left" *ngIf="!ingredient.show">					
+					<label>Cantidad Disponible</label>
+					<p>{{ingredient.quantity}}</p>
+				</div>
+
+				<div class="fields-ingredients pull-left" *ngIf="!ingredient.show">					
+					<label>Tipo de Unidad</label>
+					<p>{{ingredient.unit_type}}</p>
+				</div>
+
+				<div class="fields-ingredients pull-left" *ngIf="!ingredient.show">					
+					<label>Precio de Costo</label>
+					<p>{{ingredient.cost_price}}</p>
+				</div>
+				
+				<h2 class="h2-strong" *ngIf="ingredient.show"> {{ingredient.name}} </h2>
+				
+				<sel-edit-ingredient (edited)="refresh($event)" *ngIf="ingredient.show" [ingredienteInfo]="ingredient"></sel-edit-ingredient>
+					
+					<div class=" delete-buttom pull-right">
+						<a href="#myModal{{ingredient.id}}" role ="button" class="btn btn-danger" data-toggle="modal">
+							<span class="glyphicon glyphicon-trash"></span>
+						</a>
+					</div>
+					<div class="edit-buttom pull-right">
+						<button  (click)="toggleVisibility(i)" *ngIf="ingredient.show == false" role ="button" class="btn btn-primary">
+							<span class="glyphicon glyphicon-edit"></span>
+						</button>
+						<button  (click)="toggleVisibility(i)" *ngIf="ingredient.show == true" role ="button" class="btn btn-primary">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+
+					</div>
+									    <!-- Button HTML (to Trigger Modal) -->
+
+								  <!--  <a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Launch Demo Modal</a> -->
+								     
+
+								    <!-- Modal HTML -->
+
+								    <div id="myModal{{ingredient.id}}" class="modal fade">
+
+								        <div class="modal-dialog">
+
+								            <div class="modal-content">
+
+								                <div class="modal-header">
+
+								                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+								                    <h4 class="modal-title">Confirmacion</h4>
+
+								                </div>
+
+								                <div class="modal-body">
+
+								                    <p>Deseas eliminar est ingrediente permanentemente?</p>
+
+								                    <p class="text-warning"><small>Solo se puede borrar si el ingrediente no esta en uso en algun platillo.</small></p>
+
+								                </div>
+
+								                <div class="modal-footer">
+
+								                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+								                    <button type="button" class="btn btn-danger" (click)="deleteIngredient(ingredient.id)" data-dismiss="modal">Eliminar</button>
+
+								                </div>
+
+								            </div>
+
+								        </div>
+
+								    </div>
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+<sel-new-ingredient (sended)="refresh($event)"></sel-new-ingredient>
+<div class="clearfix"></div>

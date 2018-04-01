@@ -1,0 +1,43 @@
+
+<div class="col-lg-5 edit-ingredient">
+	<h1 class="edit-title">{{title}}</h1>
+	<div class="alert alert-success" *ngIf= "status == 'success'">
+		Se creo ingrediente correctamente. 
+	</div>
+	<div class="alert alert-danger" *ngIf= "status == 'error'">
+	No se pudo guardar ingrediente 
+	</div>
+	 <form #editIngredientForm = "ngForm" (ngSubmit) = "onSubmit(editIngredientForm,$event); sendIngredient($event);" class = "col-lg-12">
+		<p>
+			<label>Nombre</label>
+			<input type="text" name="name" #name="ngModel" [(ngModel)]="ingredient.name" class="form-control" required />
+			<span *ngIf ="!name.valid && name.touched"  >
+				El nombre del ingrediente es obligatorio.
+			</span>
+		</p>
+		<p>
+			<label>Tipo de Unidad</label>
+			<input type="text" name="unit_type" #unit_type="ngModel" [(ngModel)]="ingredient.unit_type" class="form-control" required />
+			<span *ngIf ="!unit_type.valid && unit_type.touched"  >
+				Este campo es obligatorio.
+			</span>
+		</p>
+		<p>
+			<label>Cantidad</label>
+			<input type="number" name="quantity" #quantity="ngModel" [(ngModel)]="ingredient.quantity" class="form-control" required />
+			<span *ngIf ="!quantity.valid && quantity.touched"  >
+				Este campo es obligatorio, solo numeros.
+			</span>
+		</p>
+		<p>
+			<label>Precio de Costo</label>
+			<input type="number" name="cost_price" #cost_price="ngModel" [(ngModel)]="ingredient.cost_price" class="form-control" required />
+			<span *ngIf ="!cost_price.valid && cost_price.touched"  >
+				Este campo es obligatorio, solo numeros.
+			</span>
+		</p>
+		
+		<button type="submit" name="" class="btn btn-success" [disabled] ="!editIngredientForm.form.valid" > <span class="glyphicon glyphicon-edit"></span>  {{title}} </button>
+
+	</form>	
+</div>

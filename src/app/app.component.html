@@ -1,20 +1,74 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="navigation col-lg-12">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="avatar pull-left">
+          	<img src="assets/images/bell-plate.png" >          	
+          	
+          </div>
+            <a href="#" class="navbar-brand">{{title}}</a>
+        </div>
+        
+        <ul class="nav navbar-nav" ><!-- Verifica si el Identity esta en el navegador (localStorage) si esta muestra las pestanas -->
+          <li>
+            <a [routerLink]="['/']" [routerLinkActive] ="['active']" >
+              <span class="glyphicon glyphicon-home"></span>
+              TITULO 1
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/']" [routerLinkActive] ="['active']">
+              <span class="glyphicon glyphicon-th-list"></span>
+              TITULO 2
+            </a>
+          </li>
+          <li>
+            <a [routerLink] = "['/']" [routerLinkActive]="['active']">
+              <span class="glyphicon glyphicon-user"></span>
+              TITULO 3
+            </a>
+          </li>
+          <li>
+            <a [routerLink] = "['/']" [routerLinkActive]="['active']">
+              <span class="glyphicon glyphicon-envelope"></span>
+              TITULO 4
+            </a>
+          </li>
+        </ul>
+        <!--		
+        <ul class="nav navbar navbar-nav navbar-right" >
+          <li>
+            <a [routerLink] = "['/']" [routerLinkActive]="['active']">
+              <span class="glyphicon glyphicon-log-in"></span>
+              Login
+            </a>
+          </li>
+          <li>
+            <a [routerLink] = "['/']" [routerLinkActive]="['active']">
+              <span class="glyphicon glyphicon-user"></span>
+              Register
+            </a>
+          </li>
+        </ul>
+      -->
+<!--
+        <ul class="nav navbar-nav navbar-right" *ngIf = "">
+          <li class="avatar">
+           <!--Cargar la imagen del Usuario
+           <img src="{{url + 'get-image-user/'+identity.image}}" *ngIf="identity.image">
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle ="dropdown" href="#">{{identity.name}}<span class="caret"></span></a>
+            <ul class="dropdown-menu"> 
+              <li><a [routerLink]="['/profile',identity._id]"><span class="glyphicon glyphicon-user"></span> Mi Perfil</a></li>
+              <li><a [routerLink]="['/mis-datos']" ><span class="glyphicon glyphicon-cog"></span> Mis Datos</a></li>
+              <li><a class ="pointer" (click)="logout()" href=""><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesion</a></li>
+            </ul>
+          </li>
+        </ul>
+    -->    
+    </div>
+  </nav>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<router-outlet></router-outlet>
