@@ -1,0 +1,142 @@
+
+<div class="col-lg-8 meals-list" *ngIf="meals">
+	
+	<h1 class="h1-strong">{{title}}</h1> 
+	<div class="col-lg-3 pull-right">
+		<h3>Cantidad de Platillos: {{meals.length}}</h3>
+	</div>
+
+		<!--<label *ngFor="let ingredient of meal.ingredients">{{ingredient.name}}</label>
+		-->
+	<div class="col-lg-12 panel-default  pull-left" *ngFor= "let meal of meals, let i =index">
+	
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="fields-meals pull-left" *ngIf="!meal.show && !meal.show_ingredients">
+					<h4 class="h4-bold">Plato</h4>
+					<h4>{{meal.name}}</h4>
+				</div>
+				<div class="fields-meals pull-left" *ngIf="!meal.show && !meal.show_ingredients">
+					<h4 class="h4-bold">Tipo Plato</h4>
+					<h4>{{meal.meal_type}}</h4>
+				</div>
+				<div class="fields-meals pull-left" *ngIf="!meal.show && !meal.show_ingredients">					
+					<h4 class="h4-bold">Costo</h4>
+					<h4>{{meal.meal_cost}}</h4>
+				</div>
+
+				<div class="fields-meals pull-left" *ngIf="!meal.show && !meal.show_ingredients">					
+					<h4 class="h4-bold"	>Precio de Venta</h4>
+					<h4>{{meal.sell_price}}</h4>
+				</div>
+ 
+				
+				
+				<h2 class="h2-strong" *ngIf="meal.show"> {{meal.name}} </h2>
+				
+				<sel-edit-meal (edited)="refresh()" *ngIf="meal.show" [MealInfo]="meal"></sel-edit-meal>				
+				
+				<div *ngIf="meal.show_ingredients && meal.ingredients !=''">
+					
+					<h4 class="pull-right"> Ingredientes: {{meal.ingredients.length}}</h4>	
+					<h2 class="h2-strong">Detalles del plato {{meal.name}}</h2>
+				</div>
+
+				<h2 class="h2-strong" *ngIf="meal.show_ingredients && meal.ingredients ==''">Plato {{meal.name}} no tiene Ingredientes  asignados. </h2>
+				
+
+				<div class=" delete-buttom pull-right">
+						<a href="#myModal{{meal.id}}" role ="button" class="btn btn-danger" data-toggle="modal">
+							<span class="glyphicon glyphicon-trash"></span>
+						</a>
+					</div>
+					<div class="edit-buttom pull-right">
+						<button  (click)="toggleVisibility(i)"  role ="button" class="btn btn-primary">
+							<span class="glyphicon glyphicon-edit" *ngIf="meal.show == false"></span>
+							<span class="glyphicon glyphicon-remove" *ngIf="meal.show == true"></span>
+						</button>
+
+					</div>
+					<div class="show-details pull-right">
+						<button class="btn btn-default" (click)="showIngredients(i)" >
+							<span *ngIf="meal.show_ingredients == false" class="glyphicon glyphicon-eye-open"></span>
+							<span *ngIf="meal.show_ingredients == true" class="glyphicon glyphicon-eye-close"></span>
+						</button>
+					</div>
+
+				<div class="col-lg-12" *ngIf="meal.show_ingredients && meal.ingredients !=''">
+					<div class="col-lg-7 ">
+						<div class="col-lg-4 meals-details pull-left" *ngFor="let ingredient of meal.ingredients">
+						
+							<h3 class="h3-bold">{{ ingredient.name }} </h3>
+							<h4>Precio:  <span class="ingredients-details">{{ ingredient.cost_price }}</span> </h4>
+							<h4>Cantidad:
+								<span class="ingredients-details" *ngFor="let recipe of meal.recipes"> 
+									
+											<span *ngIf ="recipe.ingredient_id == ingredient.id && recipe.meal_id == meal.id">
+												{{recipe.quantity}}	
+											</span>
+									
+									
+								</span>
+							</h4> 
+								
+							<h4>Tipo: <span class="ingredients-details">{{ ingredient.unit_type }}</span></h4>
+							
+						</div>	
+					</div>
+					
+					<div class="col-lg-4 meals-recipe pull-right">
+						<p>{{meal.recipe_description}}</p>
+					</div>
+				</div>					
+									    <!-- Button HTML (to Trigger Modal) -->
+
+								  <!--  <a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Launch Demo Modal</a> -->
+								     
+
+								    <!-- Modal HTML -->
+
+								    <div id="myModal{{meal.id}}" class="modal fade">
+
+								        <div class="modal-dialog">
+
+								            <div class="modal-content">
+
+								                <div class="modal-header">
+
+								                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+								                    <h4 class="modal-title">Confirmacion</h4>
+
+								                </div>
+
+								                <div class="modal-body">
+
+								                    <p>Deseas eliminar est El Plato permanentemente?</p>
+
+								                    <p class="text-warning"><small>Solo se puede borrar si el meale no esta en uso.</small></p>
+
+								                </div>
+
+								                <div class="modal-footer">
+
+								                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+								                    <button type="button" class="btn btn-danger" (click)="deleteMeal(meal.id)" data-dismiss="modal">Eliminar</button>
+
+								                </div>
+
+								            </div>
+
+								        </div>
+
+								    </div>				
+			</div>
+		</div>
+
+
+	</div>
+</div>
+<sel-new-meal (sended)="refresh($event)"></sel-new-meal>
+<div class="clearfix"></div>

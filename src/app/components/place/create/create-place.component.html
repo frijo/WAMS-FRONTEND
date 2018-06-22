@@ -1,0 +1,23 @@
+<div class="col-lg-4 create-place pull-right">
+	<h1 class="h1-strong">{{title}}</h1>
+	<div class="alert alert-success" *ngIf= "status == 'success'">
+		Se creo lugar correctamente. 
+	</div>
+	<div class="alert alert-danger" *ngIf= "status == 'error'">
+	No se pudo guardar lugar 
+	</div>
+	 <form #newPlaceForm = "ngForm" (ngSubmit) = "onSubmit(newPlaceForm,$event); sendPlace($event);" class = "col-lg-12">
+		<p>
+			<label>Nombre</label>
+			<input type="text" name="name" #name="ngModel" [(ngModel)]="place.name" class="form-control" required />
+			<span *ngIf ="!name.valid && name.touched"  >
+				El nombre del lugar es obligatorio.
+			</span>
+		</p>
+		
+		
+		<input type="submit" name="" value="{{title}}" class="btn btn-success " [disabled] ="!newPlaceForm.form.valid" />
+
+
+	</form>	
+</div>

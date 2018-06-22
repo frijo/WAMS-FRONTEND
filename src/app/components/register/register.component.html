@@ -1,0 +1,60 @@
+
+<div class="register-form col-lg-5">
+	<h1 class="h1-strong">{{title}}</h1>
+	<div class="alert alert-success" *ngIf= "status == 'success'">
+		Registro completado correctamente, <a [routerLink] = "['/login']">Identificate aqui</a> 
+	</div>
+	<div class="alert alert-danger" *ngIf= "status == 'error'">
+		El registro no se ha podido completarse, quizas tu email o nickname ya este en uso,intentalo de nuevo. 
+	</div>
+	 <form #registerForm = "ngForm" novalidate (ngSubmit) = "onSubmit(registerForm)" class = "col-lg-12">
+		<p>
+			<label>Nombre de Usuario</label>
+			<input type="text" name="username" #username="ngModel" [(ngModel)]="user.username" class="form-control" required minlength="5" maxlength="20"/>
+			
+		      <small [hidden]="username.valid || (username.pristine && !registerForm.submitted)" class="text-danger">
+		       Nombre de usuario requerido(5 caracteres minimo).
+		      </small>    		
+		</p>
+		<p>
+			<label>Correo Electronico</label>
+			<input type="text" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" required pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"/>
+			 <small [hidden]="email.valid || (email.pristine && !registerForm.submitted)" class="text-danger">
+        		El correo electronico es requerido y el formato deberia ser: <i>Ej: john@doe.com</i>.
+    		</small>
+		</p>
+		<p>
+			<label>Rol del Usuario</label>
+			<select  name="role" #role="ngModel" [(ngModel)]="user.role"  class="select">
+			  <option value="Admin">Administrador</option>
+			  <option value="Waiter">Mesero/a</option>
+			  <option value="Cook">Cocinero</option>
+			  
+			</select>
+			<small [hidden]="role.valid || (role.pristine && !registerForm.submitted)" class="text-danger">
+				El rol de usuario es requerido
+			</small>
+		
+		</p>		
+		<p>
+			<label>Contraseña</label>
+			<input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control" required validateEqual="password_confirmation" reverse="true"/>
+			<small [hidden]="password.valid || (password.pristine && !registerForm.submitted)" class="text-danger">
+				La contraseña es requerida
+			</small>
+		</p>
+		<p>
+			<label>Confirmar Contraseña</label>
+			<input type="password" name="password_confirmation" #password_confirmation="ngModel" [(ngModel)]="user.password_confirmation" class="form-control" required  validateEqual="password"/>
+			<small [hidden]="password_confirmation.valid || (password_confirmation.pristine && !registerForm.submitted)" class="text-danger">
+		        La contraseña no coincide.
+		    </small>
+		</p>
+		<div class="btn-register">
+			<input type="submit" name="" value="{{title}}" class="btn btn-success" [disabled] ="!registerForm.form.valid" />	
+		</div>
+		
+
+
+	</form>	
+</div>

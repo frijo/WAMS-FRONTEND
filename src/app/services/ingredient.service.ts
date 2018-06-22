@@ -12,31 +12,32 @@ export class IngredientService{
 		this.url =GLOBAL.url;
 	}
 	
-	getIngredient(id):Observable<any>{
-		let headers = new HttpHeaders().set('Content-Type','application/json');
+	getIngredient(id,token):Observable<any>{
+		let headers = new HttpHeaders().set('Content-type','application/json').set('Authorization',token);
 		return this._http.get(this.url+'ingredients/'+id,{headers: headers});	
 	}
 	
 	getAllIngredients():Observable<any>{
-		let headers = new HttpHeaders().set('Content-Type','application/json');
+		let headers = new HttpHeaders().set('Content-type','application/json');
 	//header("Access-Control-Allow-Origin: *");
-		return this._http.get(this.url+'ingredients');
+		return this._http.get(this.url+'ingredients',{headers: headers});
 	//	return this._http.get("http://localhost:3000/api/v1/ingredients",{ headers: headers });
 	}
 	
-	createIngredient( ingredient:Ingredient ):Observable<any>{
+	createIngredient( ingredient:Ingredient,token ):Observable<any>{
 		let params = JSON.stringify(ingredient);
-		let headers = new HttpHeaders().set('Content-Type','application/json');
+		
+		let headers = new HttpHeaders().set('Content-type','application/json').set('Authorization',token);
 		return this._http.post(this.url+'ingredients',params,{headers:headers});
 	}
 
-	updateIngredient( ingredient:Ingredient ):Observable<any>{
+	updateIngredient( ingredient:Ingredient,token ):Observable<any>{
 		let params = JSON.stringify(ingredient);
-		let headers = new HttpHeaders().set('Content-Type','application/json');
+		let headers = new HttpHeaders().set('Content-type','application/json').set('Authorization',token);
 		return this._http.put(this.url+'ingredients/'+ingredient.id,params,{headers:headers});	
 	}
-	deleteIngredient(id){
-		let headers = new HttpHeaders().set('Content-Type','application/json');
+	deleteIngredient(id,token){
+		let headers = new HttpHeaders().set('Content-type','application/json').set('Authorization',token);
 		return this._http.delete(this.url+'ingredients/'+id,{headers: headers});
 	}
 }

@@ -1,3 +1,4 @@
+
 .navigation .navbar {
 
 	background-color: rgba(0, 0, 0, 0.83) !important;
@@ -11,11 +12,39 @@
    	left: 0; 
    	z-index: 999;
 }
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover{
+	background-color: #f3f3f3 !important;
+	font-weight: bold;
+	color: black !important;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > ul{
+	background-color: #f3f3f3 !important;
+
+	
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > ul li a{
+	font-weight: bold;
+	color: black !important;	
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > ul li a span{
+	
+	color: black !important;	
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open >a span{
+	
+	color: black !important;	
+}
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover{
+ background-color: white !important;
+}
+
 .navigation .navbar *{
 	color: white !important;
+	font-weight: bold;
 }
 .navbar-header{
 	padding-left: 20px;
+	min-height: 94px;
 }
 .navigation {
 	margin:0px;
@@ -40,10 +69,31 @@
 	border-bottom: 1px solid #eee;
 	margin-top: 0px;
 }
+.h4-bold{
+	font-weight: bold;
+}
+.h3-bold{
+	font-weight: bold;
+}
 .h2-strong{
 	font-weight: bold;
 	text-align: center;
 	border-bottom: 1px solid #eee;
+}
+.tb-headers{
+	font-size: 25px;
+	font-weight: bold;
+
+}
+.tb-rows{
+	font-size: 18px;
+}
+.tb-rows :hover{
+	cursor:pointer;
+	background-color:#FFFDD0;
+	/*background-color: yellow;
+	
+	border: 3px solid green;*/
 }
 .edit-title{
 	font-size: 20px;
@@ -55,13 +105,60 @@
 	margin-top: 0px;
 }
 .navigation .avatar{
-	width: 60px;
-	height: 60px;
+	width: 67px;
+	/*height: 60px;*/
 	border-radius: 100px;
 	overflow: hidden;
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	margin-right: 10px;
 
+}
+.login-form,.register-form{
+	margin-top: 120px;
+	padding-top: 15px;
+	margin-right: 35px;
+	height: 400px;
+	left: 30%;
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+}
+.home-field{
+	margin-top: 120px;
+	padding-top: 15px;
+}
+.bill-fields{
+	width: 250px !important;
+	padding-bottom: 10px;
+}
+.bill-quantity-field{
+	width: 80px !important;
+
+	font-size: 16px;
+	font-weight: bold;
+}
+.bill-description-field{
+	font-weight: bold;
+	font-size: 16px;	
+}
+.order-fields{
+	font-size: 30px !important;
+	font-weight: bold !important;
+}
+.pay-with-field{
+	font-size: 30px !important;
+	color: red !important;
+	font-weight: bold !important;
+	height: 60px !important;
+	width: 350px !important;
+}
+.jumbotron{
+	padding: 50px; 
+}
+.btn-register{
+	padding-bottom: 25px !important;
+}
+.register-form{
+	height: auto;
 }
 .navbar-header .avatar img{
 	
@@ -70,16 +167,35 @@
 	background-size: contain;
 	background-color: white;
 }
-.ingredients-list, .create-ingredient{
+.ingredients-list, .create-ingredient, .meals-list, .places-list,.create-place,.orders-list,.create-order-bill{
 	margin-top: 100px;
 	padding-top: 15px;
 
     
 }
-.edit-buttom{
+.edit-buttom,.show-details{
 	padding-right: 15px;
 }
-.fields-ingredients{
-	padding-right: 30px;
+.btn-create-meal{
+	margin-left: 30px !important;
+}
+.fields-ingredients,.fields-meals,.fields-orders{
+	padding-right: 100px;
 	text-align: center;
+}
+.meals-details{
+	text-align: left;
+	padding-right: 10px !important;
+}
+.meals-recipe{
+	min-height: 300px !important;
+	background-color: #eee;
+	padding: 10px;
+	margin: 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+}
+.meals-recipe p{
+	font-size: 20px;
 }

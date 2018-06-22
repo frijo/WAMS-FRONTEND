@@ -9,7 +9,9 @@ export class Ingredient{
 		public avaible?:number,
 		public created_at?: string,
 		public updated_at?: string,
-		public show?:boolean
+		public show?:boolean,
+	//	public check_id:string,
+	//	public qty_id:string
 	){
 		
 	}

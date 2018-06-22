@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute,Params } from '@angular/router';
 import { Ingredient } from '../../models/ingredient';
 import { IngredientService } from '../../services/ingredient.service';
+import { UserService } from '../../services/user.service';
 import { GLOBAL } from '../../services/global';
 
 @Component({
 	selector: 'sel-ingredient',
 	templateUrl: './ingredient.component.html',
-	providers:[IngredientService]
+	providers:[IngredientService,UserService]
 
 })
 export class IngredientComponent implements OnInit{
@@ -16,21 +17,24 @@ export class IngredientComponent implements OnInit{
 	public ingredient: Ingredient;
 	public ingredients:Ingredient[];
 	public status:string;
+	public token;
 	//public show:booleam;
 	constructor(
 	
 		private _router: Router,
 		private _route: ActivatedRoute,
-		private _ingredientesService: IngredientService
+		private _ingredientesService: IngredientService,
+		private _userService: UserService
 	){
 		this.title= 'Lista de Ingredientes';
 	//	this.show = false;
 	}
 	ngOnInit(){
 		this.getIngredients();
+		this.token = this._userService.getToken();
 	}
 	getIngredients(){
-	//	console.log('Entro en funcion getIngredients');
+		
 		this._ingredientesService.getAllIngredients().subscribe(
 			response=>{
 				if(!response){
@@ -51,7 +55,7 @@ export class IngredientComponent implements OnInit{
 			},
 			error=>{
 				var errorMessage = <any>error;
-				console.log(errorMessage);
+		//		console.log(errorMessage);
 				
 				if(errorMessage != null){
 					this.status='error'
@@ -60,7 +64,7 @@ export class IngredientComponent implements OnInit{
 		);
 	}
 	deleteIngredient(id){
-		this._ingredientesService.deleteIngredient(id).subscribe(
+		this._ingredientesService.deleteIngredient(id,this.token).subscribe(
 			response=>{
 				console.log(response);
 				this.status='success';

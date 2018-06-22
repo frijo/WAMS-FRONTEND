@@ -1,0 +1,47 @@
+
+<div class="col-lg-12 orders-list" *ngIf="orders">
+	
+	<h1 class="h1-strong">{{title}}</h1> 
+	<div class="col-lg-3 pull-right">
+		<h3>Ordenes: {{orders.length}}</h3>
+	</div>
+	<div class="col-lg-12 panel-default  pull-left" *ngFor= "let order of orders, let i =index ">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="fields-orders pull-left" *ngIf="!order.show && !order.show_meals">
+					<h4 class="h4-bold">N°Orden</h4>
+					<h4>{{order.order_number}}</h4>
+				</div>
+				<div class="fields-orders pull-left" *ngIf="!order.show && !order.show_meals">
+					<h4 class="h4-bold">Cliente</h4>
+					<h4>{{order.client_name}}</h4>
+				</div>
+				<div class="fields-orders pull-left" *ngIf="!order.show && !order.show_meals">
+					<h4 class="h4-bold">Total</h4>
+					<h4>{{order.total_tax}}</h4>
+				</div>
+				<div class="fields-orders pull-left" *ngIf="!order.show && !order.show_meals">
+					<h4 class="h4-bold">Creada por</h4>
+					<h4>{{order.user.username}}</h4>
+				</div>
+				<div class="fields-orders pull-left" *ngIf="!order.show && !order.show_meals">
+					<h4 class="h4-bold">Lugares</h4>
+						<div *ngFor="let place of order.places">
+							<h4>{{place.name}}</h4>		
+						</div>
+					
+				</div>
+				<div class="fields-orders pull-left" *ngIf="!order.show && !order.show_meals">
+					<h4 class="h4-bold">Tipo de pago</h4>
+					<h4>{{order.payment_type}}</h4>
+				</div>
+				<div class="fields-orders pull-left" *ngIf="!order.show && !order.show_meals">
+					<h4 class="h4-bold">Fecha</h4>
+					<h4>{{order.created_at |  date:'MM/dd/yyyy  hh:mm'}} </h4>
+				</div>
+				
+			</div>
+		</div>
+
+	</div>
+</div> 

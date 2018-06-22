@@ -1,0 +1,97 @@
+<div class="col-lg-6 edit-ingredient">
+	<h1 class="h1-strong">{{title}}</h1>
+	<div class="alert alert-success" *ngIf= "status == 'success'">
+		Se creo Plato correctamente. 
+	</div>
+	<div class="alert alert-danger" *ngIf= "status == 'error'">
+	No se pudo guardar Plato 
+	</div>
+	<!--#newMealForm = "ngForm"-->
+	 <form [formGroup]="myForm"  (ngSubmit)="onSubmit(myForm,$event); sendMeal($event)" class = "col-lg-12">
+		
+		<p>
+			<label>Nombre</label>
+			<!--#name="ngModel" [(ngModel)]="meal.name" -->
+			<input type="text"  formControlName="name" class="form-control"  required />
+			
+		</p>
+		<p>
+			<label>Tipo de Plato</label>
+			<!--#meal_type="ngModel" [(ngModel)]="meal.meal_type"-->
+			<select  name="meal_type" formControlName="meal_type"  class="select">
+			  <option value="Main">Plato Fuerte</option>
+			  <option value="Boca">Boca</option>
+			  <option value="Dessert">Postres</option>
+			  <option value="Drinks">Refresco</option>
+			  <option value="MilkShake">Batidos</option>
+			</select>
+
+		</p>
+		<p>
+			<label>Precio de Costo</label>
+			<!--#meal_cost="ngModel" [(ngModel)]="meal.meal_cost"-->
+			<input type="number" name="meal_cost" formControlName="meal_cost"  class="form-control" required />
+			
+		</p>
+		<p>
+			<label>Precio de Venta</label>
+			<!--#sell_price="ngModel" [(ngModel)]="meal.sell_price"-->
+			<input type="number" name="sell_price" formControlName="sell_price"  class="form-control" required />
+			
+		</p>
+		<p>
+			<label>Receta</label>
+			<!--#recipe_description="ngModel" [(ngModel)]="meal.recipe_description" -->
+			<textarea name="recipe_description" formControlName="recipe_description" class="form-control">Digite la receta Aqui...</textarea>
+		
+			
+		</p>
+		<label>Selecciona los Ingredientes del plato </label>
+		<div formArrayName="recipes_attributes">
+			<!--let media of cardForm.controls.media.controls-->
+		
+				
+			
+			<div *ngFor="let ingredient of ingredients;let i=index " >
+				
+						<!--
+
+						<div class="col-lg-6">
+							<p>
+								<label>
+
+		            				<input type="checkbox" name="checkIngre{{i}}" id="checkIngre{{i}}" value={{ingredient.id}} (click)="addIngredients($event,i); deleteIngredient($event,i); hideFieldQuantity[i] = !hideFieldQuantity[i]"> 	
+
+		            				{{ingredient.name}}
+		            			</label>
+		            		
+
+							<input type="number" id="qtyIngre{{i}}" [disabled]="!hideFieldQuantity[i]" name="qtyIngre{{i}}" placeholder="Cantidad" (change)="addQuantity($event)" class="form-control"/>	
+							</p>
+						</div>
+						-->
+						<div class=" col-lg-6">
+							<p>
+								<label>
+
+		            				<input type="checkbox" name="checkIngre{{i}}" id="checkIngre{{i}}" value={{ingredient.id}} (click)="addIngredients($event,i); deleteIngredient($event,i); hideFieldQuantity[i] = !hideFieldQuantity[i]"> 	
+
+		            				{{ingredient.name  }}                                               
+		            			</label>  <label class="pull-right">{{ingredient.unit_type}}</label>
+		            		
+
+							<input type="number" id="qtyIngre{{i}}" [disabled]="!hideFieldQuantity[i]"  name="qtyIngre{{i}}" placeholder="Cantidad" (change)="addQuantity($event,ingredient.cost_price)" class="form-control"/>	
+							</p>
+						</div>
+
+	            	
+	            	
+	        </div>
+		</div>
+		
+		<input type="submit" name="" value="{{title}}" class="btn btn-success " />
+		
+
+	</form>	
+
+</div>

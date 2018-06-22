@@ -1,74 +1,107 @@
 <div class="navigation col-lg-12">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header">
-          <div class="avatar pull-left">
-          	<img src="assets/images/bell-plate.png" >          	
-          	
-          </div>
-            <a href="#" class="navbar-brand">{{title}}</a>
-        </div>
         
-        <ul class="nav navbar-nav" ><!-- Verifica si el Identity esta en el navegador (localStorage) si esta muestra las pestanas -->
-          <li>
-            <a [routerLink]="['/']" [routerLinkActive] ="['active']" >
-              <span class="glyphicon glyphicon-home"></span>
-              TITULO 1
-            </a>
-          </li>
-          <li>
-            <a [routerLink]="['/']" [routerLinkActive] ="['active']">
-              <span class="glyphicon glyphicon-th-list"></span>
-              TITULO 2
-            </a>
-          </li>
-          <li>
-            <a [routerLink] = "['/']" [routerLinkActive]="['active']">
-              <span class="glyphicon glyphicon-user"></span>
-              TITULO 3
-            </a>
-          </li>
-          <li>
-            <a [routerLink] = "['/']" [routerLinkActive]="['active']">
-              <span class="glyphicon glyphicon-envelope"></span>
-              TITULO 4
-            </a>
-          </li>
-        </ul>
-        <!--		
-        <ul class="nav navbar navbar-nav navbar-right" >
-          <li>
-            <a [routerLink] = "['/']" [routerLinkActive]="['active']">
-              <span class="glyphicon glyphicon-log-in"></span>
-              Login
-            </a>
-          </li>
-          <li>
-            <a [routerLink] = "['/']" [routerLinkActive]="['active']">
-              <span class="glyphicon glyphicon-user"></span>
-              Register
-            </a>
-          </li>
-        </ul>
-      -->
-<!--
-        <ul class="nav navbar-nav navbar-right" *ngIf = "">
-          <li class="avatar">
-           <!--Cargar la imagen del Usuario
-           <img src="{{url + 'get-image-user/'+identity.image}}" *ngIf="identity.image">
-          </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle ="dropdown" href="#">{{identity.name}}<span class="caret"></span></a>
-            <ul class="dropdown-menu"> 
-              <li><a [routerLink]="['/profile',identity._id]"><span class="glyphicon glyphicon-user"></span> Mi Perfil</a></li>
-              <li><a [routerLink]="['/mis-datos']" ><span class="glyphicon glyphicon-cog"></span> Mis Datos</a></li>
-              <li><a class ="pointer" (click)="logout()" href=""><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesion</a></li>
-            </ul>
-          </li>
-        </ul>
-    -->    
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          
+          <a class="navbar-brand" [routerLink]="['/']" [routerLinkActive] ="['active']">{{title}}
+            <div class="avatar pull-left">
+            <img src="assets/images/bell-plate.png" >           
+            
+          </div>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a [routerLink]="['/']" [routerLinkActive] ="['active']" >
+                <span class="glyphicon glyphicon-home"></span>
+                Inicio
+              </a>
+            </li>
+            <li>
+              <a [routerLink]="['/ingredients']" [routerLinkActive] ="['active']">
+                <span class="glyphicon glyphicon-apple"></span>
+                Ingredientes
+              </a>
+            </li>
+            <li>
+              <a [routerLink] = "['/meals']" [routerLinkActive]="['active']">
+                <span class="glyphicon glyphicon-cutlery"></span>
+                Platillos
+              </a>
+            </li >
+            <li *ngIf = "identity && identity.role=='Admin'">
+              <a [routerLink] = "['/register']" [routerLinkActive]="['active']">
+                <span class="glyphicon glyphicon-user"></span>
+                Usuarios
+              </a>
+            </li>  
+
+
+
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt"></span> Ordenes / Facturacion <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Lista de Ordenes</a></li>
+                <li><a [routerLink] = "['/new-order']" [routerLinkActive]="['active']">Crear Orden</a></li>
+                <li><a href="#">Generar Ordenes</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          
+
+          
+
+          <ul class="nav navbar-nav navbar-right" *ngIf = "!identity">
+            <li>
+              <a [routerLink] = "['/login']" [routerLinkActive]="['active']">
+                <span class="glyphicon glyphicon-log-in"></span>
+                Login
+              </a>
+            </li>
+          
+          </ul>
+          <ul class="nav navbar-nav navbar-right" *ngIf = "identity">
+            
+            <!--<li class="avatar">
+             Cargar la imagen del Usuario
+             <img src="{{url + 'get-image-user/'+identity.image}}" *ngIf="identity.image">
+            </li>-->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle ="dropdown" href="#"> {{identity.username}}<span class="caret"></span></a>
+              <ul class="dropdown-menu"> 
+                <li><a [routerLink]="['/']"><span class="glyphicon glyphicon-user"></span> Mi Perfil</a></li>
+                <li><a [routerLink]="['/']" ><span class="glyphicon glyphicon-cog"></span> Mis Datos</a></li>
+                <li><a class ="pointer" (click)="logout()" href=""><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesion</a></li>
+              </ul>
+            </li>
+          </ul>
+
+
+
+
+
+
+
+        </div>
     </div>
   </nav>
+
+  
+
 </div>
 
 <router-outlet></router-outlet>

@@ -1,0 +1,191 @@
+
+<div class="col-lg-6 create-order-bill pull-left" *ngIf="identity.role=='Admin'">
+	
+	<h1 class="h1-strong">PLatillos y Bebidas <span class="glyphicon glyphicon-cutlery"></span></h1>
+	
+	<form>
+	    <div class="form-group">
+	        <div class="input-group">
+	            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+	            <input type="text" class="form-control" name="searchString" placeholder="Buscar ..." [(ngModel)]="searchString">
+	        </div>
+	    </div>
+	</form>
+  	<table class="table table-bordered ">
+   
+
+        <thead>
+            <tr class="tb-headers">
+                <th *ngFor="let column of colums">{{column}}</th>
+            </tr>
+        </thead>
+    	<tbody class="tb-rows"  >
+      	   	<tr class="tb-rows order-fields" *ngFor="let meal of meals | filter : 'name' : searchString; let i = index" (click)="addMealToBill(meal)">
+	            <td class="hidden">{{meal.id}}</td>
+	            <td>{{meal.name}}</td>
+	            <td>{{meal.meal_type}}</td>
+	            <td>₡{{meal.sell_price | number : '1.2-2'}}</td>
+      	   	</tr>
+      	   
+      	</tbody>
+  	</table>
+
+</div>
+
+<div class="col-lg-6 create-order-bill pull-right" *ngIf="identity.role=='Admin'" >
+	
+	<h1 class="h1-strong">Facturar <span class="glyphicon glyphicon-list-alt"></span></h1>
+<div >
+	<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+		
+        <div class="col-lg-4 bill-fields">
+			<label>Cliente</label>
+          <input type="text" class="form-control" formControlName="client_name" (keyup)="checkPayment( customer_pay_with.value )">
+          <small *ngIf="!myForm.controls.client_name.valid" class="text-danger">
+              Nombre del cliente es requerido (Maximo de caracteres 50).
+          </small>
+		</div>
+        <!--
+        <div class="form-group">
+                      <label>Correo E</label>
+          	<input type="text" class="form-control col-lg-4 bill-fields" formControlName="email">
+        </div>
+        -->
+
+        <div class="col-lg-4 bill-fields">
+          <label>Telefono</label>
+          <input type="text" class="form-control" formControlName="client_phone">          
+        </div>
+        
+        <div class="col-lg-4 bill-fields">
+          <label>Tipo de Pago</label><br>
+          	<select  formControlName="payment_type"  class="select" (keyup)="checkPayment( customer_pay_with.value )">
+			  <option [ngValue]="option" selected *ngFor="let option of paymentOptions">{{option}}</option>
+			  
+			</select>
+
+          <small *ngIf="!myForm.controls.payment_type.valid" class="text-danger">
+              Debe de elegir el tipo de pago.
+            </small>
+        </div>
+		<table class="table table-bordered">
+	   
+
+	        <thead>
+	            <tr class="tb-headers">
+	                <th *ngFor="let column of billColums">{{column}}</th>
+	            </tr>
+	        </thead>
+	    	<tbody formArrayName="bill_meals_attributes"  >
+	      		 
+      	   	<!--<tr class="order-fields" *ngFor="let meal of mealsToBill; let i=index " > -->
+	      	   	<tr class="" *ngFor="let meal of mealsToBill; let i=index ">
+		            <td>{{i+1}}</td>
+		            <td class="hidden"><input type="number" value= {{meal.id}}></td>
+		            <td><input  class="bill-quantity-field" type="number" #quantity (keyup)="quantityChanged(meal,quantity.value)" value= "{{meal.quantity}}" min="0"></td>
+		            <td class="bill-description-field">{{meal.name}}</td>
+		            <td class="">₡{{meal.sell_price | number : '1.2-2'}}</td>
+		            <td class="">₡{{meal.sell_price*quantity.value | number : '1.2-2'}}</td>
+		            
+		            <td style="text-align: center;"><a (click)="removeMealOfBill(meal,i)" role ="button" class="btn btn-warning" data-toggle="modal">
+							<span class="glyphicon glyphicon-minus-sign"></span>
+						</a></td>
+
+
+	      	   	</tr>
+	      	   <!--Agregar alguna comida en especifico,no detallada en el inventario o servicio-->
+	      	   	<tr [class.hidden]="!hiddeNewMealForms" style="background-color: #FFFDD0">
+		            <td>{{mealsToBill.length + 1 }}</td>
+		            
+		            <td><input  class="bill-quantity-field" type="number" #quantityMeal (keyup)="newMealQuantityOrSellPriceChanged(quantityMeal.value,sell_priceMeal.value)" value="{{quantityMeal2}}" min="0"></td>
+
+		            <td class="bill-description-field"> <input #nameMeal type="text" value={{nameMeal2}}> </td>
+		            
+		            <td class="bill-description-field"><input #sell_priceMeal (keyup)="newMealQuantityOrSellPriceChanged(quantityMeal.value,sell_priceMeal.value)" type="number" value="{{sell_priceMeal2}}" min="0"></td>
+		            
+		            <td class="">₡{{ newMealTotalPrice | number : '1.2-2'}}</td>
+		            
+		            <td style="text-align: center;">
+						<a (click)="createNewMealToBill(nameMeal.value,quantityMeal.value,sell_priceMeal.value)" role ="button" class="btn btn-success" data-toggle="modal">
+							<span class="glyphicon glyphicon-ok-circle"></span>
+						</a>
+						<a (click)="clearNewMealFields()" role ="button" class="btn btn-warning" data-toggle="modal">
+							<span class="glyphicon glyphicon-minus-sign"></span>
+						</a>
+					</td>
+					
+
+	      	   	</tr>
+	      	   	
+	      	   	<tr>
+	      	   		<td>
+	      	   			<a role ="button" class="btn btn-primary" data-toggle="modal" (click)="changeValue()">
+							<span class="glyphicon glyphicon-plus-sign"></span>
+						</a>
+	      	   		</td>
+	      	   </tr>
+	      	   	<tr>
+	      	   		<td></td>
+		            <td></td>
+		            <td></td>
+		            <td></td>	
+		            <td class="tb-headers">Subtotal</td>
+		            <td class="tb-headers">₡{{billSubTotal | number : '1.2-2'}}</td>
+		        </tr>
+	      	   	<tr>	            
+		        	<td></td>
+		            <td></td>
+		            <td></td>
+		            <td></td>
+		        	<td class="tb-headers">Impuesto</td>
+		            <td class="tb-headers">₡{{billTax | number : '1.2-2'}}</td>
+		        </tr>
+		        <tr>		            
+		            <td></td>
+		            <td></td>
+		            <td></td>
+		            <td></td>
+		            <td class="tb-headers" style="color:green">Total</td>
+		            <td class="tb-headers" style="color:green">₡{{billTotal | number : '1.2-2'}}</td>
+
+	      	   	</tr>
+	      	   	
+	      		   	
+	      	</tbody>
+	  	</table>
+	  	<label class="h1-strong" style="color: red">Paga Con:</label>
+	  	<div class="col-lg-5  pull-right">
+          
+        	<input class="pay-with-field form-control" formControlName="customer_pay_with" #customer_pay_with (keyup)="checkPayment( customer_pay_with.value )" type="number" min="0">  
+        	
+        </div>
+	  	
+  		<div class="margin-20">
+          <button type="submit" class="btn btn-primary btn-lg btn-block pull-right" style="font-weight: bold" [disabled]="!itsBigger">FACTURAR</button>
+        </div>
+
+  	</form>
+  	
+  	<popup #popup1>
+  		<h3 style="color: green; font-weight: bold">El monto es: ₡{{billTotalPopup | number : '1.2-2'}}</h3>
+  		<h3 style="color: blue; font-weight: bold">Paga con: ₡{{clientPayment | number : '1.2-2'}}</h3>
+	    <h1 style="color: red; font-weight: bold">El Cambio es: ₡{{vuelto | number : '1.2-2'}}</h1>
+	</popup>
+	<popup #popup2>
+  		<h3 style="color: green; font-weight: bold">{{errorMessage}}</h3>
+  		
+	</popup>
+  	</div>
+  	
+</div>
+<div class="hidden" id="print-section">
+	<div *ngIf="bill">
+		<h3>Centro Turistico Tilapal</h3>	
+    	<p> Factura: {{bill.invoice_number}}</p>    			
+    	<p> Fecha : {{bill.invoice_date }}</p>
+   		<p> Cliente : {{bill.client_name}}</p>
+   		<p> Telefono : {{bill.client_phone}}</p>
+	</div>
+
+</div>	
+ 

@@ -17,7 +17,14 @@
 		</p>
 		<p>
 			<label>Tipo de Unidad</label>
-			<input type="text" name="unit_type" #unit_type="ngModel" [(ngModel)]="ingredient.unit_type" class="form-control" required />
+			<select  name="unit_type" #unit_type="ngModel" [(ngModel)]="ingredient.unit_type"  class="select" required>
+			  <option value="KG">KG</option>
+			  <option value="UNID">UNID</option>
+			  
+			</select>
+
+
+
 			<span *ngIf ="!unit_type.valid && unit_type.touched"  >
 				Este campo es obligatorio.
 			</span>
